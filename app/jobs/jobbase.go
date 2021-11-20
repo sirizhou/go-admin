@@ -2,12 +2,13 @@ package jobs
 
 import (
 	"fmt"
-	log "github.com/go-admin-team/go-admin-core/logger"
-	"github.com/go-admin-team/go-admin-core/sdk"
 	models2 "go-admin/app/jobs/models"
-	"gorm.io/gorm"
 	"sync"
 	"time"
+
+	log "github.com/go-admin-team/go-admin-core/logger"
+	"github.com/go-admin-team/go-admin-core/sdk"
+	"gorm.io/gorm"
 
 	"github.com/robfig/cron/v3"
 
@@ -99,7 +100,7 @@ LOOP:
 func Setup(dbs map[string]*gorm.DB) {
 
 	fmt.Println(time.Now().Format(timeFormat), " [INFO] JobCore Starting...")
-
+	//dbs包含两个数据库
 	for k, db := range dbs {
 		sdk.Runtime.SetCrontab(k, cronjob.NewWithSeconds())
 		setup(k, db)

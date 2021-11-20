@@ -3,6 +3,7 @@ package models
 import (
 	// "gorm.io/gorm"
 
+	"fmt"
 	"go-admin/common/models"
 	"time"
 )
@@ -20,6 +21,7 @@ type Article struct {
 }
 
 func (Article) TableName() string {
+	fmt.Println("调用articel----------------------------------")
 	return "article"
 }
 

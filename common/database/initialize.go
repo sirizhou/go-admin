@@ -17,7 +17,7 @@ import (
 	"go-admin/common/global"
 )
 
-// Setup 配置数据库
+// Setup 配置数据库 config.DatabasesConfig里面存了数据库信息
 func Setup() {
 	for k := range toolsConfig.DatabasesConfig {
 		setupSimpleDatabase(k, toolsConfig.DatabasesConfig[k])
@@ -28,8 +28,9 @@ func setupSimpleDatabase(host string, c *toolsConfig.Database) {
 	if global.Driver == "" {
 		global.Driver = c.Driver
 	}
+	// c.Source root:Z1X7r2zxr172+@tcp(127.0.0.1:3306)/go_admin_main?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
 	log.Infof("%s => %s", host, pkg.Green(c.Source))
-	registers := make([]toolsDB.ResolverConfigure, len(c.Registers))
+	registers := make([]toolsDB.ResolverConfigure, len(c.Registers)) // c.Registers长度为0
 	for i := range c.Registers {
 		registers[i] = toolsDB.NewResolverConfigure(
 			c.Registers[i].Sources,
@@ -38,7 +39,7 @@ func setupSimpleDatabase(host string, c *toolsConfig.Database) {
 			c.Registers[i].Tables)
 	}
 	resolverConfig := toolsDB.NewConfigure(c.Source, c.MaxIdleConns, c.MaxOpenConns, c.ConnMaxIdleTime, c.ConnMaxLifeTime, registers)
-	db, err := resolverConfig.Init(&gorm.Config{
+	db, err := resolverConfig.Init(&gorm.Config{ // resolverConfig有数据库信息，Init返回gorm.DB
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: true,
 		},

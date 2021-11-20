@@ -59,7 +59,7 @@ func init() {
 func setup() {
 	// 注入配置扩展项
 	config.ExtendConfig = &ext.ExtConfig
-	//1. 读取配置
+	//1. 读取配置 两个数据库都读进去了
 	config.Setup(
 		file.NewSource(file.WithPath(configYml)),
 		database.Setup,
