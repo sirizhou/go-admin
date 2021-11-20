@@ -15,7 +15,7 @@ import (
      {{- range .Columns -}}
      {{if eq .GoType "time.Time"}}{{- $bb = true -}}{{- end -}}
      {{- end -}}
-     {{- if eq $bb true -}}
+     {{- if eq $bb true}}
      "time"
      {{- end }}
 )
