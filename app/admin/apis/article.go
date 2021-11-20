@@ -82,6 +82,8 @@ func (e Article) Get(c *gin.Context) {
 		e.Error(500, err, err.Error())
 		return
 	}
+	// 多数据库手动切换
+	s.Service.Orm = sdk.Runtime.GetDb()["ace"]
 	var object models.Article
 
 	p := actions.GetPermissionFromContext(c)
@@ -117,6 +119,8 @@ func (e Article) Insert(c *gin.Context) {
 		e.Error(500, err, err.Error())
 		return
 	}
+	// 多数据库手动切换
+	s.Service.Orm = sdk.Runtime.GetDb()["ace"]
 	// 设置创建人
 	req.SetCreateBy(user.GetUserId(c))
 
@@ -152,6 +156,8 @@ func (e Article) Update(c *gin.Context) {
 		e.Error(500, err, err.Error())
 		return
 	}
+	// 多数据库手动切换
+	s.Service.Orm = sdk.Runtime.GetDb()["ace"]
 	req.SetUpdateBy(user.GetUserId(c))
 	p := actions.GetPermissionFromContext(c)
 
@@ -185,6 +191,8 @@ func (e Article) Delete(c *gin.Context) {
 		e.Error(500, err, err.Error())
 		return
 	}
+	// 多数据库手动切换
+	s.Service.Orm = sdk.Runtime.GetDb()["ace"]
 
 	// req.SetUpdateBy(user.GetUserId(c))
 	p := actions.GetPermissionFromContext(c)
