@@ -20,17 +20,17 @@ type ArticleGetPageReq struct {
 
 type ArticleOrder struct {
 	//inOrder进行绑定，不存在，存在则要求类型为string
-	Id        string    `form:"idOrder" search:"type:order;column:id;table:article"`
-	Title     string    `form:"titleOrder"search:"type:order;column:title;table:article"`
-	Author    string    `form:"authorOrder"  search:"type:order;column:author;table:article"`
-	Content   string    `form:"contentOrder"  search:"type:order;column:content;table:article"`
-	Status    string    `form:"statusOrder"  search:"type:order;column:status;table:article"`
-	PublishAt time.Time `form:"publishAtOrder"  search:"type:order;column:publish_at;table:article"`
-	CreatedAt time.Time `form:"createdAtOrder"  search:"type:order;column:created_at;table:article"`
-	UpdatedAt time.Time `form:"updatedAtOrder"  search:"type:order;column:updated_at;table:article"`
-	DeletedAt time.Time `form:"deletedAtOrder"  search:"type:order;column:deleted_at;table:article"`
-	CreateBy  string    `form:"createByOrder"  search:"type:order;column:create_by;table:article"`
-	UpdateBy  string    `form:"updateByOrder"  search:"type:order;column:update_by;table:article"`
+	Id        string `form:"idOrder" search:"type:order;column:id;table:article"`
+	Title     string `form:"titleOrder"search:"type:order;column:title;table:article"`
+	Author    string `form:"authorOrder"  search:"type:order;column:author;table:article"`
+	Content   string `form:"contentOrder"  search:"type:order;column:content;table:article"`
+	Status    string `form:"statusOrder"  search:"type:order;column:status;table:article"`
+	PublishAt string `form:"publishAtOrder"  search:"type:order;column:publish_at;table:article"`
+	CreatedAt string `form:"createdAtOrder"  search:"type:order;column:created_at;table:article"`
+	UpdatedAt string `form:"updatedAtOrder"  search:"type:order;column:updated_at;table:article"`
+	DeletedAt string `form:"deletedAtOrder"  search:"type:order;column:deleted_at;table:article"`
+	CreateBy  string `form:"createByOrder"  search:"type:order;column:create_by;table:article"`
+	UpdateBy  string `form:"updateByOrder"  search:"type:order;column:update_by;table:article"`
 }
 
 func (m *ArticleGetPageReq) GetNeedSearch() interface{} {
