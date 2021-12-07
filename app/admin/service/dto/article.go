@@ -4,36 +4,33 @@ import (
 	"go-admin/app/admin/models"
 	"go-admin/common/dto"
 	common "go-admin/common/models"
-     
-     
-     
-     
-     
-     "time"
+
+	"time"
 )
 
 type ArticleGetPageReq struct {
-	dto.Pagination     `search:"-"`
-    Title string `form:"title"  search:"type:exact;column:title;table:article" comment:"标题"`
-    Author string `form:"author"  search:"type:exact;column:author;table:article" comment:"作者"`
-    Content string `form:"content"  search:"type:exact;column:content;table:article" comment:"内容"`
-    Status string `form:"status"  search:"type:exact;column:status;table:article" comment:"状态"`
-    PublishAt time.Time `form:"publishAt"  search:"type:exact;column:publish_at;table:article" comment:"发布时间"`
-    ArticleOrder
+	dto.Pagination `search:"-"`
+	Title          string    `form:"title"  search:"type:exact;column:title;table:article" comment:"标题"`
+	Author         string    `form:"author"  search:"type:exact;column:author;table:article" comment:"作者"`
+	Content        string    `form:"content"  search:"type:exact;column:content;table:article" comment:"内容"`
+	Status         string    `form:"status"  search:"type:exact;column:status;table:article" comment:"状态"`
+	PublishAt      time.Time `form:"publishAt"  search:"type:exact;column:publish_at;table:article" comment:"发布时间"`
+	ArticleOrder
 }
 
-type ArticleOrder struct {Id int `form:"idOrder"  search:"type:order;column:id;table:article"`
-    Title string `form:"titleOrder"  search:"type:order;column:title;table:article"`
-    Author string `form:"authorOrder"  search:"type:order;column:author;table:article"`
-    Content string `form:"contentOrder"  search:"type:order;column:content;table:article"`
-    Status string `form:"statusOrder"  search:"type:order;column:status;table:article"`
-    PublishAt time.Time `form:"publishAtOrder"  search:"type:order;column:publish_at;table:article"`
-    CreatedAt time.Time `form:"createdAtOrder"  search:"type:order;column:created_at;table:article"`
-    UpdatedAt time.Time `form:"updatedAtOrder"  search:"type:order;column:updated_at;table:article"`
-    DeletedAt time.Time `form:"deletedAtOrder"  search:"type:order;column:deleted_at;table:article"`
-    CreateBy string `form:"createByOrder"  search:"type:order;column:create_by;table:article"`
-    UpdateBy string `form:"updateByOrder"  search:"type:order;column:update_by;table:article"`
-    
+type ArticleOrder struct {
+	//inOrder进行绑定，不存在，存在则要求类型为string
+	Id        string    `form:"idOrder" search:"type:order;column:id;table:article"`
+	Title     string    `form:"titleOrder"search:"type:order;column:title;table:article"`
+	Author    string    `form:"authorOrder"  search:"type:order;column:author;table:article"`
+	Content   string    `form:"contentOrder"  search:"type:order;column:content;table:article"`
+	Status    string    `form:"statusOrder"  search:"type:order;column:status;table:article"`
+	PublishAt time.Time `form:"publishAtOrder"  search:"type:order;column:publish_at;table:article"`
+	CreatedAt time.Time `form:"createdAtOrder"  search:"type:order;column:created_at;table:article"`
+	UpdatedAt time.Time `form:"updatedAtOrder"  search:"type:order;column:updated_at;table:article"`
+	DeletedAt time.Time `form:"deletedAtOrder"  search:"type:order;column:deleted_at;table:article"`
+	CreateBy  string    `form:"createByOrder"  search:"type:order;column:create_by;table:article"`
+	UpdateBy  string    `form:"updateByOrder"  search:"type:order;column:update_by;table:article"`
 }
 
 func (m *ArticleGetPageReq) GetNeedSearch() interface{} {
@@ -41,24 +38,24 @@ func (m *ArticleGetPageReq) GetNeedSearch() interface{} {
 }
 
 type ArticleInsertReq struct {
-    Id int `json:"-" comment:"编码"` // 编码
-    Title string `json:"title" comment:"标题"`
-    Author string `json:"author" comment:"作者"`
-    Content string `json:"content" comment:"内容"`
-    Status string `json:"status" comment:"状态"`
-    PublishAt time.Time `json:"publishAt" comment:"发布时间"`
-    common.ControlBy
+	Id        int       `json:"-" comment:"编码"` // 编码
+	Title     string    `json:"title" comment:"标题"`
+	Author    string    `json:"author" comment:"作者"`
+	Content   string    `json:"content" comment:"内容"`
+	Status    string    `json:"status" comment:"状态"`
+	PublishAt time.Time `json:"publishAt" comment:"发布时间"`
+	common.ControlBy
 }
 
-func (s *ArticleInsertReq) Generate(model *models.Article)  {
-    if s.Id == 0 {
-        model.Model = common.Model{ Id: s.Id }
-    }
-    model.Title = s.Title
-    model.Author = s.Author
-    model.Content = s.Content
-    model.Status = s.Status
-    model.PublishAt = s.PublishAt
+func (s *ArticleInsertReq) Generate(model *models.Article) {
+	if s.Id == 0 {
+		model.Model = common.Model{Id: s.Id}
+	}
+	model.Title = s.Title
+	model.Author = s.Author
+	model.Content = s.Content
+	model.Status = s.Status
+	model.PublishAt = s.PublishAt
 }
 
 func (s *ArticleInsertReq) GetId() interface{} {
@@ -66,24 +63,24 @@ func (s *ArticleInsertReq) GetId() interface{} {
 }
 
 type ArticleUpdateReq struct {
-    Id int `uri:"id" comment:"编码"` // 编码
-    Title string `json:"title" comment:"标题"`
-    Author string `json:"author" comment:"作者"`
-    Content string `json:"content" comment:"内容"`
-    Status string `json:"status" comment:"状态"`
-    PublishAt time.Time `json:"publishAt" comment:"发布时间"`
-    common.ControlBy
+	Id        int       `uri:"id" comment:"编码"` // 编码
+	Title     string    `json:"title" comment:"标题"`
+	Author    string    `json:"author" comment:"作者"`
+	Content   string    `json:"content" comment:"内容"`
+	Status    string    `json:"status" comment:"状态"`
+	PublishAt time.Time `json:"publishAt" comment:"发布时间"`
+	common.ControlBy
 }
 
-func (s *ArticleUpdateReq) Generate(model *models.Article)  {
-    if s.Id == 0 {
-        model.Model = common.Model{ Id: s.Id }
-    }
-    model.Title = s.Title
-    model.Author = s.Author
-    model.Content = s.Content
-    model.Status = s.Status
-    model.PublishAt = s.PublishAt
+func (s *ArticleUpdateReq) Generate(model *models.Article) {
+	if s.Id == 0 {
+		model.Model = common.Model{Id: s.Id}
+	}
+	model.Title = s.Title
+	model.Author = s.Author
+	model.Content = s.Content
+	model.Status = s.Status
+	model.PublishAt = s.PublishAt
 }
 
 func (s *ArticleUpdateReq) GetId() interface{} {
@@ -92,8 +89,9 @@ func (s *ArticleUpdateReq) GetId() interface{} {
 
 // ArticleGetReq 功能获取请求参数
 type ArticleGetReq struct {
-     Id int `uri:"id"`
+	Id int `uri:"id"`
 }
+
 func (s *ArticleGetReq) GetId() interface{} {
 	return s.Id
 }

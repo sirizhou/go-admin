@@ -23,9 +23,9 @@ func (e *Article) GetPage(c *dto.ArticleGetPageReq, p *actions.DataPermission, l
 	// Orm 是 *gorm.DB类型
 	err = e.Orm.Model(&data).
 		Scopes(
-			cDto.MakeCondition(c.GetNeedSearch()),
-			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
-			actions.Permission(data.TableName(), p),
+			cDto.MakeCondition(c.GetNeedSearch()),            //** 包含搜索条件
+			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()), //分页
+			actions.Permission(data.TableName(), p),          //搜索权限
 		).
 		Find(list).Limit(-1).Offset(-1).
 		Count(count).Error

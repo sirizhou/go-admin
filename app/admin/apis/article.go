@@ -36,22 +36,21 @@ type Article struct {
 func (e Article) GetPage(c *gin.Context) {
 	req := dto.ArticleGetPageReq{}
 	s := service.Article{}
-	err := e.MakeContext(c).
-		MakeOrm().
-		Bind(&req).
-		MakeService(&s.Service). //e赋值给s
-		Errors
+	err := e.MakeContext(c). //增加Http上下文
+					Bind(&req).              //将请求绑定到查表需求
+					MakeService(&s.Service). //e赋值给s
+					Errors
 	if err != nil {
 		e.Logger.Error(err)
 		e.Error(500, err, err.Error())
 		return
 	}
-	// 多数据库手动切换
+	// 绑定数据库
 	s.Service.Orm = sdk.Runtime.GetDb()["ace"]
 	p := actions.GetPermissionFromContext(c)
 	list := make([]models.Article, 0)
 	var count int64
-
+	// 在service中实现
 	err = s.GetPage(&req, p, &list, &count)
 	if err != nil {
 		e.Error(500, err, fmt.Sprintf("获取文章 失败，\r\n失败信息 %s", err.Error()))
@@ -73,7 +72,6 @@ func (e Article) Get(c *gin.Context) {
 	req := dto.ArticleGetReq{}
 	s := service.Article{}
 	err := e.MakeContext(c).
-		MakeOrm().
 		Bind(&req).
 		MakeService(&s.Service).
 		Errors
@@ -82,7 +80,7 @@ func (e Article) Get(c *gin.Context) {
 		e.Error(500, err, err.Error())
 		return
 	}
-	// 多数据库手动切换
+	// 绑定数据库
 	s.Service.Orm = sdk.Runtime.GetDb()["ace"]
 	var object models.Article
 
@@ -110,7 +108,6 @@ func (e Article) Insert(c *gin.Context) {
 	req := dto.ArticleInsertReq{}
 	s := service.Article{}
 	err := e.MakeContext(c).
-		MakeOrm().
 		Bind(&req).
 		MakeService(&s.Service).
 		Errors
@@ -119,7 +116,7 @@ func (e Article) Insert(c *gin.Context) {
 		e.Error(500, err, err.Error())
 		return
 	}
-	// 多数据库手动切换
+	// 绑定数据库
 	s.Service.Orm = sdk.Runtime.GetDb()["ace"]
 	// 设置创建人
 	req.SetCreateBy(user.GetUserId(c))
@@ -147,7 +144,6 @@ func (e Article) Update(c *gin.Context) {
 	req := dto.ArticleUpdateReq{}
 	s := service.Article{}
 	err := e.MakeContext(c).
-		MakeOrm().
 		Bind(&req).
 		MakeService(&s.Service).
 		Errors
@@ -156,7 +152,7 @@ func (e Article) Update(c *gin.Context) {
 		e.Error(500, err, err.Error())
 		return
 	}
-	// 多数据库手动切换
+	// 绑定数据库
 	s.Service.Orm = sdk.Runtime.GetDb()["ace"]
 	req.SetUpdateBy(user.GetUserId(c))
 	p := actions.GetPermissionFromContext(c)
@@ -182,7 +178,6 @@ func (e Article) Delete(c *gin.Context) {
 	s := service.Article{}
 	req := dto.ArticleDeleteReq{}
 	err := e.MakeContext(c).
-		MakeOrm().
 		Bind(&req).
 		MakeService(&s.Service).
 		Errors
@@ -191,7 +186,7 @@ func (e Article) Delete(c *gin.Context) {
 		e.Error(500, err, err.Error())
 		return
 	}
-	// 多数据库手动切换
+	// 绑定数据库
 	s.Service.Orm = sdk.Runtime.GetDb()["ace"]
 
 	// req.SetUpdateBy(user.GetUserId(c))
