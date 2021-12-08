@@ -10,11 +10,13 @@ import (
 
 type ArticleGetPageReq struct {
 	dto.Pagination `search:"-"`
-	Title          string    `form:"title"  search:"type:exact;column:title;table:article" comment:"标题"`
-	Author         string    `form:"author"  search:"type:exact;column:author;table:article" comment:"作者"`
-	Content        string    `form:"content"  search:"type:exact;column:content;table:article" comment:"内容"`
-	Status         string    `form:"status"  search:"type:exact;column:status;table:article" comment:"状态"`
-	PublishAt      time.Time `form:"publishAt"  search:"type:exact;column:publish_at;table:article" comment:"发布时间"`
+	Title          string `form:"title"  search:"type:exact;column:title;table:article" comment:"标题"`
+	Author         string `form:"author"  search:"type:exact;column:author;table:article" comment:"作者"`
+	Content        string `form:"content"  search:"type:exact;column:content;table:article" comment:"内容"`
+	Status         string `form:"status"  search:"type:exact;column:status;table:article" comment:"状态"`
+	// form:"pulblishAtBeg" 与vue对应
+	PublishAtBeg time.Time `form:"publishAtBeg"  search:"type:gte;column:publish_at;table:article" comment:"发布时间Beg"`
+	PublishAtEnd time.Time `form:"publishAtEnd"  search:"type:lte;column:publish_at;table:article" comment:"发布时间Beg"`
 	ArticleOrder
 }
 
