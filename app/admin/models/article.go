@@ -16,6 +16,8 @@ type Article struct {
 	Content   string    `json:"content" gorm:"type:varchar(255);comment:内容"`
 	Status    string    `json:"status" gorm:"type:int;comment:状态"`
 	PublishAt time.Time `json:"publishAt" gorm:"type:timestamp;comment:发布时间"`
+	// 增加一个字段，使出现在response中
+	ClcData string `json:"calData" gorm:"comment:计算值"`
 	models.ModelTime
 	models.ControlBy
 }

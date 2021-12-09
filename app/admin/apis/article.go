@@ -50,13 +50,17 @@ func (e Article) GetPage(c *gin.Context) {
 	p := actions.GetPermissionFromContext(c)
 	list := make([]models.Article, 0)
 	var count int64
-	// 在service中实现
+	// 在service中实现，讲查询结果放入list
 	err = s.GetPage(&req, p, &list, &count)
 	if err != nil {
 		e.Error(500, err, fmt.Sprintf("获取文章 失败，\r\n失败信息 %s", err.Error()))
 		return
 	}
-
+	//list记录response内容，对应前端response.date.list
+	/*
+		---------------------进行处理----------------------
+			返回值放入list
+	*/
 	e.PageOK(list, int(count), req.GetPageIndex(), req.GetPageSize(), "查询成功")
 }
 
