@@ -2,6 +2,7 @@ package apis
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-admin-team/go-admin-core/sdk"
@@ -56,12 +57,19 @@ func (e Article) GetPage(c *gin.Context) {
 		e.Error(500, err, fmt.Sprintf("获取文章 失败，\r\n失败信息 %s", err.Error()))
 		return
 	}
+	listAdd := make([]models.ArticleResponse, len(list))
+	for index, value := range list {
+		listAdd[index].Article = value
+		cal, _ := strconv.ParseFloat(value.Content, 64)
+		cal /= 4000000000.0
+		listAdd[index].ClcData = cal
+	}
 	//list记录response内容，对应前端response.date.list
 	/*
 		---------------------进行处理----------------------
 			返回值放入list
 	*/
-	e.PageOK(list, int(count), req.GetPageIndex(), req.GetPageSize(), "查询成功")
+	e.PageOK(listAdd, int(count), req.GetPageIndex(), req.GetPageSize(), "查询成功")
 }
 
 // Get 获取文章
