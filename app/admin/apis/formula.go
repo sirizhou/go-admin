@@ -109,7 +109,6 @@ func (e Formula) Get(c *gin.Context) {
 // @Router /api/v1/formula [post]
 // @Security Bearer
 
-/*
 func (e Formula) Insert(c *gin.Context) {
 	req := dto.FormulaInsertReq{}
 	s := service.Formula{}
@@ -125,7 +124,7 @@ func (e Formula) Insert(c *gin.Context) {
 	// 绑定数据库
 	s.Service.Orm = sdk.Runtime.GetDb()["data"]
 	// 设置创建人
-	req.SetCreateBy(user.GetUserId(c))
+	//req.SetCreateBy(user.GetUserId(c))
 
 	err = s.Insert(&req)
 	if err != nil {
@@ -160,7 +159,7 @@ func (e Formula) Update(c *gin.Context) {
 	}
 	// 绑定数据库
 	s.Service.Orm = sdk.Runtime.GetDb()["data"]
-	req.SetUpdateBy(user.GetUserId(c))
+	//req.SetUpdateBy(user.GetUserId(c))
 	p := actions.GetPermissionFromContext(c)
 
 	err = s.Update(&req, p)
@@ -170,7 +169,7 @@ func (e Formula) Update(c *gin.Context) {
 	}
 	e.OK(req.GetId(), "修改成功")
 }
-*/
+
 // Delete 删除公式
 // @Summary 删除公式
 // @Description 删除公式

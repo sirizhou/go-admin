@@ -20,8 +20,8 @@ func registerFormulaRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddle
 	{
 		r.GET("", api.GetPage)
 		r.GET("/:id", api.Get)
-		//r.POST("", api.Insert)
-		//r.PUT("/:id", api.Update)
+		r.POST("", api.Insert)
+		r.PUT("/:id", api.Update)
 		r.DELETE("", api.Delete)
 	}
 

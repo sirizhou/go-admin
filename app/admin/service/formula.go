@@ -57,7 +57,6 @@ func (e *Formula) Get(d *dto.FormulaGetReq, p *actions.DataPermission, model *mo
 	return nil
 }
 
-/*
 // Insert 创建Formula对象
 func (e *Formula) Insert(c *dto.FormulaInsertReq) error {
 	var err error
@@ -85,12 +84,14 @@ func (e *Formula) Update(c *dto.FormulaUpdateReq, p *actions.DataPermission) err
 		e.Log.Errorf("FormulaService Save error:%s \r\n", err)
 		return err
 	}
+	/* 鉴权无法通过，但是数据被更改
 	if db.RowsAffected == 0 {
 		return errors.New("无权更新该数据")
 	}
+	*/
 	return nil
 }
-*/
+
 // Remove 删除Formula
 func (e *Formula) Remove(d *dto.FormulaDeleteReq, p *actions.DataPermission) error {
 	var data models.Formula
@@ -103,8 +104,10 @@ func (e *Formula) Remove(d *dto.FormulaDeleteReq, p *actions.DataPermission) err
 		e.Log.Errorf("Service RemoveFormula error:%s \r\n", err)
 		return err
 	}
+	/* 鉴权有问题
 	if db.RowsAffected == 0 {
 		return errors.New("无权删除该数据")
 	}
+	*/
 	return nil
 }

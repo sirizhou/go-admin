@@ -56,7 +56,7 @@ func (e DataDato) GetPage(c *gin.Context) {
 	for index, value := range list {
 		listAdd[index].DataDato = value
 		cal, _ := strconv.ParseFloat(value.Content, 64)
-		cal /= 4000000000.0
+		cal = cal * cal / 100
 		listAdd[index].ClcRes = cal
 	}
 	//list记录response内容，对应前端response.date.list

@@ -14,8 +14,8 @@ type Formula struct {
 	DataType          string `json:"dataType" gorm:"type:varchar(32);comment:数据类型"`
 	ProcessingFormula string `json:"processingFormula" gorm:"type:varchar(32);comment:处理方法"`
 	FormulaParameter  string `json:"formulaParameter" gorm:"type:varchar(64);comment:相关参数"`
-	PositionBeg       int    `json:"positionBeg" gorm"type:int;comment:起始处理位置"`
-	PositionEnd       int    `json:"positionEnd" gorm"type:int;comment:截止处理位置"`
+	PositionBeg       string `json:"positionBeg" gorm"type:int;comment:起始处理位置"`
+	PositionEnd       string `json:"positionEnd" gorm"type:int;comment:截止处理位置"`
 }
 
 func (Formula) TableName() string {

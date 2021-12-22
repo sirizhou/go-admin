@@ -18,9 +18,14 @@ type DataDatoGetPageReq struct {
 }
 
 type DataDatoOrder struct {
-	//inOrder进行绑定，不存在，存在则要求类型为string
+	//inOrder进行绑定，类型为string
 	IdOrder        string `form:"idOrder" search:"type:order;column:id;table:data_dato"`
 	CreatedAtOrder string `form:"createdAtOrder"  search:"type:order;column:created_at;table:data_dato"`
+}
+
+type DataDatoFormula struct {
+	// 解析公式绑定
+	SelectFormulaId int `form:"id"  search:"type:exact;column:id;table:formula" comment:"编码"`
 }
 
 func (m *DataDatoGetPageReq) GetNeedSearch() interface{} {
